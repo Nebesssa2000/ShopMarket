@@ -4,8 +4,8 @@ spring:
 # PostgreSQL Configuration
   datasource:
     url: jdbc:postgresql://delivery-db:5432/deliverydb
-    username: postgres
-    password: password
+    username: usr
+    password: pwd
   jpa:
     hibernate:
       ddl-auto: update

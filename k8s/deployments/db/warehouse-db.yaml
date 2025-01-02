@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: warehouse-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: warehouse-db
+  template:
+    metadata:
+      labels:
+        app: warehouse-db
+    spec:
+      containers:
+        - name: warehouse-db
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "pwd"
+            - name: POSTGRES_USER
+              value: "usr"
+            - name: POSTGRES_DB
+              value: warehousedb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: warehouse-db
+spec:
+  selector:
+    app: warehouse-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
