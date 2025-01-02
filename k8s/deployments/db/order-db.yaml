@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: order-db
-          image: postgres:latest
+          image: victor2023victorovich/order-db:latest
           ports:
             - containerPort: 5432
           env:

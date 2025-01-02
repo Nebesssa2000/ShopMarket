@@ -2,12 +2,20 @@
 
 # Define paths for Dockerfiles and Kubernetes manifests
 declare -A dockerfiles=(
-  ["order-service"]="docker/orderservice/Dockerfile"
-  ["payment-service"]="docker/paymentservice/Dockerfile"
-  ["delivery-service"]="docker/deliveryservice/Dockerfile"
-  ["product-service"]="docker/productservice/Dockerfile"
-  ["warehouse-service"]="docker/warehouseservice/Dockerfile"
-  ["ui-service"]="docker/ui-service/Dockerfile"
+  ["order-service"]="ShopOrderService/docker/Dockerfile"
+  ["payment-service"]="ShopPaymentService/docker/Dockerfile"
+  ["delivery-service"]="ShopDeliveryService/docker/Dockerfile"
+  ["product-service"]="ShopProductService/docker/Dockerfile"
+  ["warehouse-service"]="ShopWarehouseService/docker/Dockerfile"
+  ["ui-service"]="UI-service/docker/Dockerfile"
+)
+
+declare -A db_dockerfiles=(
+  ["order-db"]="ShopOrderService/docker/db/Dockerfile"
+  ["payment-db"]="ShopPaymentService/docker/db/Dockerfile"
+  ["delivery-db"]="ShopDeliveryService/docker/db/Dockerfile"
+  ["product-db"]="ShopProductService/docker/db/Dockerfile"
+  ["warehouse-db"]="ShopWarehouseService/docker/db/Dockerfile"
 )
 
 declare -A deployments=(
@@ -35,6 +43,14 @@ for service in "${!dockerfiles[@]}"; do
   docker push victor2023victorovich/$service:latest
 done
 
+# Build and push Docker images for each database
+for db in "${!db_dockerfiles[@]}"; do
+  echo "Building Docker image for $db..."
+  docker build -t victor2023victorovich/$db:latest -f ${db_dockerfiles[$db]} .
+  echo "Pushing Docker image for $db..."
+  docker push victor2023victorovich/$db:latest
+done
+
 # Apply Istio manifests
 echo "Applying Istio manifests..."
 kubectl apply -f k8s/istio/istio-gateway.yaml
@@ -46,8 +62,10 @@ for service in "${!deployments[@]}"; do
   kubectl apply -f ${deployments[$service]}
 done
 
-# Apply Kubernetes deployments for databases
+# Update image in database deployments and apply them
 for db in "${!databases[@]}"; do
+  echo "Updating image in Kubernetes deployment for $db..."
+  sed -i "s|image: .*|image: victor2023victorovich/$db:latest|g" ${databases[$db]}
   echo "Applying Kubernetes deployment for $db..."
   kubectl apply -f ${databases[$db]}
 done

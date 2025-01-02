@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: payment-db
-          image: postgres:latest
+          image: victor2023victorovich/payment-db:latest
           ports:
             - containerPort: 5432
           env:

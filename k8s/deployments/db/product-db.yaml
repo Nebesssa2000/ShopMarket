@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: product-db
-          image: postgres:latest
+          image: victor2023victorovich/product-db:latest
           ports:
             - containerPort: 5432
           env:

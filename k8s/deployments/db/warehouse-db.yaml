@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: warehouse-db
-          image: postgres:latest
+          image: victor2023victorovich/warehouse-db:latest
           ports:
             - containerPort: 5432
           env:
