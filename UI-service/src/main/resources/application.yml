@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: UI-service
+  thymeleaf:
+    cache: false
+  web:
+    resources:
+      static-locations: classpath:/static/

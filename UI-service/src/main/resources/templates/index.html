@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Online Store</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+<h1>Welcome to the Online Store</h1>
+<div>
+    <h2>Products</h2>
+    <ul id="product-list">
+        <!-- Product list will be populated by JavaScript -->
+    </ul>
+</div>
+<div>
+    <h2>Order</h2>
+    <form id="order-form">
+        <label for="product">Product:</label>
+        <select id="product" name="product">
+            <!-- Product options will be populated by JavaScript -->
+        </select>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" required>
+        <button type="submit">Order</button>
+    </form>
+</div>
+<div>
+    <h2>Payment</h2>
+    <form id="payment-form">
+        <label for="order-id">Order ID:</label>
+        <input type="number" id="order-id" name="order-id" required>
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" required>
+        <button type="submit">Pay</button>
+    </form>
+</div>
+<div>
+    <h2>Delivery Status</h2>
+    <form id="delivery-form">
+        <label for="order-id-delivery">Order ID:</label>
+        <input type="number" id="order-id-delivery" name="order-id-delivery" required>
+        <button type="submit">Check Status</button>
+    </form>
+    <p id="delivery-status"></p>
+</div>
+</body>
+</html>

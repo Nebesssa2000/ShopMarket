@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: ShopDeliveryService
+# PostgreSQL Configuration
+  datasource:
+    url: jdbc:postgresql://delivery-db:5432/deliverydb
+    username: postgres
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+# Kafka Configuration
+kafka:
+  bootstrap-servers: kafka:9092
+  consumer:
+    group-id: delivery-group
+    auto-offset-reset: earliest
+    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+    properties:
+      spring:
+        deserializer:
+          value:
+            delegate:
+              class: org.springframework.kafka.support.serializer.JsonDeserializer
+        json:
+          trusted:
+            packages: "*"
+  producer:
+    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
