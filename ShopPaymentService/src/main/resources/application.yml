@@ -1,9 +1,8 @@
 spring:
   application:
-    name: ShopDeliveryService
-# PostgreSQL Configuration
+    name: ShopPaymentService
   datasource:
-    url: jdbc:postgresql://delivery-db:5432/deliverydb
+    url: jdbc:postgresql://payment-db:5432/paymentdb
     username: usr
     password: pwd
   jpa:
@@ -12,11 +11,11 @@ spring:
     show-sql: true
   liquibase:
     enabled: false
-# Kafka Configuration
+
 kafka:
   bootstrap-servers: kafka:9092
   consumer:
-    group-id: delivery-group
+    group-id: payment-group
     auto-offset-reset: earliest
     key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
     value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer

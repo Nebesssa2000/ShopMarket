@@ -23,7 +23,7 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file from the build stage
-COPY --from=build /home/gradle/project/build/libs/order-service-0.0.1-SNAPSHOT.jar app/OrderService.jar
+COPY --from=build /home/gradle/project/build/libs/*.jar app/OrderService.jar
 
 # Expose the port the application runs on
 EXPOSE 80 8080

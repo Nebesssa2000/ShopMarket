@@ -21,9 +21,9 @@ spec:
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://delivery-db:5432/deliverydb
             - name: SPRING_DATASOURCE_USERNAME
-              value: postgres
+              value: usr
             - name: SPRING_DATASOURCE_PASSWORD
-              value: password
+              value: pwd
 ---
 apiVersion: v1
 kind: Service
